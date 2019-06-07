@@ -1,3 +1,4 @@
+const HooverLog = require('../models/hooverLog.model');
 const hooverService = require('../services/hoover.service');
 
 
@@ -17,7 +18,21 @@ exports.clean = (req, res) => {
         instructions: req.body.instructions
     };
 
+    let hooverLog = new HooverLog({
+        input: hooverInput
+    });
+
     const hoover = new hooverService(hooverInput);
     const hooverOutput = hoover.run();
 
+    hooverLog.output = hooverOutput;
+
+    hooverLog.save()
+        .then(() => {
+            res.send(hooverOutput);
+        }).catch(error => {
+        res.status(500).send({
+            message: error.message || 'error occurred'
+        });
+    });
 };
