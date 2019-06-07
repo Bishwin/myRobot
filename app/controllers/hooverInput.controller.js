@@ -1,3 +1,5 @@
+const hooverService = require('../services/hoover.service');
+
 
 exports.clean = (req, res) => {
 
@@ -7,5 +9,15 @@ exports.clean = (req, res) => {
             message: 'payload was missing an attribute'
         });
     }
+
+    const hooverInput = {
+        roomSize: req.body.roomSize,
+        coords: req.body.coords,
+        patches: req.body.patches,
+        instructions: req.body.instructions
+    };
+
+    const hoover = new hooverService(hooverInput);
+    const hooverOutput = hoover.run();
 
 };
