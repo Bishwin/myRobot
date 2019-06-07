@@ -10,9 +10,30 @@ This application was written using `nodejs` and `express`, using `mongoose` to p
 `Chai` and `Mocha` were used for testing and assertions
 
 ## project setup
-* npm install application
-* configure database
-* run with `npm run start`
+
+### requirements
+* node
+* mongodb or mongo atlas (your own url can be added as a env var or edit `database.config.js`)
+* postman or curl to test POST endpoint
+
+### setup db 
+docker command supplied if no mongo is installed locally
+
+```
+$ mkdir ~/data
+$ sudo docker run -d -p 27017:27017 -v ~/data:/data/db mongo
+```
+to view db contents
+```
+$ mongo localhost/SampleDB
+$ db.hooverlogs.find()
+```
+
+### setup app
+* `npm install` for dependencies
+* `npm run start`  
+* for testing `npm run test-unit`
+
 
 ## Using application
 send a POST request to url `localhost:3000/hoover/clean` with curl or postman
